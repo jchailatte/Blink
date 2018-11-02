@@ -39,19 +39,15 @@ function loginNewUser() {
 		},
 		type:'post',
 		success: function(response) {
-			// TODO: check if username already exists
-			// display error msg if it does
-			// otherwise, add the user to the data base
-			
-//			result = result.trim();
-//			var n = result.localeCompare("");
-//			console.log(result);
-//			console.log(n);
-//			if (n==0) {
-//				window.location = 'profile.jsp';
-//			} else {
-//				$("#errormsg2").html(result);
-//			}
+			// TODO
+			/* The newLogin server needs to:
+			 * 
+			 * 1.) check if username already exists 
+			 * and display an error if it does
+			 * 
+			 * 2.) otherwise, add the user to the database
+			 * and redirect the user to the profile page
+			*/
 		}
 	});  
 }
@@ -59,27 +55,15 @@ function loginNewUser() {
 // Guest Login
 function loginGuest() {
 	var username = document.getElementById("username3").value;
-	var password = document.getElementById("password3").value;
 	console.log("username: " + username);
-	console.log("password: " + password);
 	$.ajax({
 		url:"login",
 		data:{
 			username: username,
-			password: password
 		},
 		type:'post',
 		success: function(response) {
-			// TODO idk
-//			result = result.trim();
-//			var n = result.localeCompare("");
-//			console.log(result);
-//			console.log(n);
-//			if (n==0) {
-//				window.location = 'profile.jsp';
-//			} else {
-//				$("#errormsg3").html(result);
-//			}
+			// TODO i have no idea what to do here :( 
 		}
 	});  
 }
