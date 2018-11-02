@@ -24,6 +24,16 @@ CREATE TABLE Guests(
 
 CREATE TABLE Survey(
 	ID int(11) primary key not null auto_increment,
+	name varchar(50) not null,
+	email varchar(50) not null,
     age int(3) not null,
-    gender varchar(10) not null
+    gender varchar(10) not null,
+    genderPreference varchar(10) not null,
+    indoorOutdoor varchar(10) not null,
+    earlyBirdNightOwl varchar(20) not null,
+    catDog varchar(10) not null,
+    music varchar(20) not null,
+    sports varchar(10) not null,
+    workout varchar(10) not null,
+    idealDate varchar(10000) not null
 );
