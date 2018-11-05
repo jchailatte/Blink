@@ -40,11 +40,11 @@
 		window.onload = displayData;
 		
 		function displayData(){
-			var userId = sessionStorage.getItem("userId");
+			var username = sessionStorage.getItem("username");
  			$.ajax({
 				url:"displayDataServlet",
 				data:{
-					userId: 1
+					username: 1
 				},
 				type: 'post',
  				success: function(response){
@@ -59,16 +59,22 @@
 	
 		function insert_profile(){
 			
-			var age = document.getElementById("lname").value;
-			var gender = document.getElementById("fname").value;
+			var username = sessionStorage.getItem("username");
+			
+			var lname = document.getElementById("lname").value;
+			var fname = document.getElementById("fname").value;
+			
+			console.log(lname);
+			console.log(fname);
 
-			$.ajax({
+ 			$.ajax({
 				url:"profileServlet",
 				data:{
+					username: 1,
 					lname: lname,
-					fname: fname,
+					fname: fname
 				},
-				type: 'post',
+				type: 'post'
 			});
 			//window.location.replace("");
 			
