@@ -1,23 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<meta charset="UTF-8">
 		<title>Profile Page</title>
+		
+		<link rel="stylesheet" type="text/css" href="nav.css" />
+		<!-- <script src="nav.js"></script> -->
 	</head>
 	<body>
+		<!-- Header -->
+		<div id = "navbar">
+			<a href="home.jsp">BLINK</a>
+			<a href="profile.jsp">Profile</a>
+			<a href="survey.jsp">Survey</a>
+		</div>
 		
-		<form name="myProfile">
+		<!-- Content -->
+		<div class="content">
+			<form name="myProfile">
 				
-			<input type ="text" id ="lname" value ="lname">
-			<br/>
-			<input type ="text" id ="fname" value ="fname">
-			<br/>
-			<input type="button" name ="Submit" value="Submit" onclick="insert_profile()"></input>
+				<input type ="text" id ="lname" value ="lname">
+				<br/>
+				<input type ="text" id ="fname" value ="fname">
+				<br/>
+				<input type="button" name ="Submit" value="Submit" onclick="insert_profile()"></input>
 					
-		</form>
+			</form>
+		</div>
 		
+		<!-- Footer -->
+		<footer>
+		</footer>
 	</body>
 	
 	<script>
@@ -26,13 +41,13 @@
 		
 		function displayData(){
 			var userId = sessionStorage.getItem("userId");
-			$.ajax({
+ 			$.ajax({
 				url:"displayDataServlet",
 				data:{
-					userId: userId
+					userId: 1
 				},
 				type: 'post',
-				success: function(response){
+ 				success: function(response){
 					
 					var data = response.split(',',3);
 					

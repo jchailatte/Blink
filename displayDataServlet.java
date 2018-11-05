@@ -28,11 +28,10 @@ public class displayDataServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,6 +39,8 @@ public class displayDataServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String result = "";
+		
+		System.out.println(userId);
 		
 		JDBCDriver driver = new JDBCDriver();
 		boolean parse = JDBCDriver.setConn();
@@ -50,6 +51,7 @@ public class displayDataServlet extends HttpServlet {
 		else {
 			System.out.println("Access");
 			result = driver.grabProfileData(userId);
+			System.out.println("result:" + result);
 			//HttpSession userChosen = request.getSession(true);
 			//userChosen.setAttribute("fullName", fullName);
 		}
