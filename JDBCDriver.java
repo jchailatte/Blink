@@ -37,8 +37,11 @@ public class JDBCDriver {
 
 	private final static String grabProfileData = "SELECT * FROM Users WHERE userId=?";
 
+	private final static int getNumOnlineUsers = "SELECT * FROM Users WHERE state=?";
+
+
 	//stuff to add events
-	
+
 	public JDBCDriver() {
 		try {
 			try {
@@ -50,19 +53,19 @@ public class JDBCDriver {
 
 		}
 	}
-	
+
 	public void addProfile(String lname, String fname) {
 		try {
 			ps = conn.prepareStatement(addProfile);
 			ps.setString(1, lname);
 			ps.setString(2, fname);
 			ps.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String grabProfileData(String userId) {
 		String result = "";
 		try {
@@ -82,6 +85,23 @@ public class JDBCDriver {
 		return result;
 	}
 
+	// Returns the current number of online users
+	public int getNumOnlineUsers() {
+		int numOnlineUsers = 0;
+		try {
+			st = conn.createStatement();
+			ps = conn.prepareStatement(getNumOnlineUsers);
+			// Only grab users who have a state "true" -- online
+			ps.setString(1, true);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				numUsers++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numOnlineUsers;
+	}
 
 	// connects to the database
 	public static boolean setConn() {
@@ -95,4 +115,3 @@ public class JDBCDriver {
 		return true;
 	}
 }
-
