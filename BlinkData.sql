@@ -37,3 +37,23 @@ CREATE TABLE Survey(
     workout varchar(10) not null,
     idealDate varchar(10000) not null
 );
+
+-- Statistics for homepage
+CREATE TABLE Stats(
+	ID int(11) primary key not null auto_increment,
+		matches int(11) not null,
+);
+
+-- First row: total number of matches
+-- TODO: increment this every time a pair of users is matched!
+INSERT INTO
+	stats(matches)
+VALUES
+	(0);
+
+-- Second row: number of successful matches
+-- TODO: increment this everytime both users press "reveal"
+INSERT INTO
+	stats(matches)
+VALUES
+	(0);
