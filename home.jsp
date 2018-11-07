@@ -30,11 +30,13 @@
 			<a href="profile.jsp">Profile</a>
 			<a href="survey.jsp">Survey</a>
 		</div>
-		
+
 		<!-- Content -->
 		<div class="content">
 			<div id = "leftColumn">
-				<p>blah blah blah blah blah</p>
+				<p>STATISTICS</p>
+        <p id = "numOnlineUsers"> Online Users: </p>
+        <p id = "successRate">Success Rate: </p>
 			</div>
 			<div id = "rightColumn">
 				<!-- Continuing User Login -->
@@ -64,7 +66,7 @@
 				</form>
 			</div>
 		</div>
-		
+
 		<!-- Footer -->
 		<footer>
 		</footer>
