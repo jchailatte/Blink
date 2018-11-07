@@ -37,8 +37,9 @@ public class JDBCDriver {
 
 	private final static String grabProfileData = "SELECT * FROM Users WHERE userId=?";
 
-	private final static int getNumOnlineUsers = "SELECT * FROM Users WHERE state=?";
+	private final static String getNumOnlineUsers = "SELECT * FROM Users WHERE state=?";
 
+	private final static String getSuccessRate = "SELECT * FROM Stats WHERE ID=?";
 
 	//stuff to add events
 
@@ -85,6 +86,7 @@ public class JDBCDriver {
 		return result;
 	}
 
+	// TODO test and debug this!
 	// Returns the current number of online users
 	public int getNumOnlineUsers() {
 		int numOnlineUsers = 0;
@@ -103,15 +105,41 @@ public class JDBCDriver {
 		return numOnlineUsers;
 	}
 
+	// TODO test and debug this!
+	// Returns the success rate
+	public float getSuccessRate() {
+		float successRate = 0;
+		int totalMatches = 0;
+		int successfulMatches = 0;
+		try {
+			st = conn.createStatement();
+			ps = conn.prepareStatement(getSuccessRate);
+			// first row = total matches, second row = successful matches
+			ps.setString(1, 1);
+			rs = ps.executeQuery();
+			totalMatches = rs.getString(2);
+			ps.setString(1, 2);
+			rs = ps.executeQuery();
+			successfulMatches = rs.getString(2);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (totalMatches > 0) {
+			successRate = successfulMatches/totalMatches;
+		} else {
+			successRate = 0;
+		}
+		return successRate;
+	}
+
 	// connects to the database
 	public static boolean setConn() {
-
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BlinkData?user=root&password=Yudeveloper1506!&useSSL=false");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return true;
 	}
 }
