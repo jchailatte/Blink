@@ -10,6 +10,7 @@
 		<div class="blinkText">BLINK</div>
   	</header>
 	<body>
+		<div class="signedInErrorMessage"></div>
         <form id="myForm" role="form">
         	Name: <input id="name" name="name" id="surveyPageName"><div id="surveyPageError1"></div> <br> <br>
         	Age: <input id="age" name="age" id="surveyPageAge"><div id="surveyPageError2"></div> <br> <br>
@@ -468,7 +469,16 @@
 			        type: 'POST',
 			        success: function(response) {
 			        	console.log(response);
-						window.location.href = 'chat.html';
+			        	
+			        	if (response != "")
+		        		{
+		        			window.location.href = 'chat.html';
+		        		}
+			        	else
+			        	{
+			        		document.getElementById('signedInErrorMessage').html = "Must be signed in to update survey page data";
+			        	}
+						
 			        },
 			        error: function(error) {
 			            console.log(error);
