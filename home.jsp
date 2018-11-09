@@ -20,6 +20,7 @@
 			width: 33%;
 			height: 100%;
 			float:right;
+			font-family: Arial, Helvetica, sans-serif;
 		}
 		#statsTitle {
 			font-family: Arial, Helvetica, sans-serif;
@@ -29,13 +30,13 @@
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 20px;
 		}
-		#introTitle {
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 30px;
-		}
-		#introBox {
+		.question {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 20px;
+		}
+		.answer {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 10px;
 		}
 	</style>
 	<body>
@@ -48,8 +49,30 @@
 		<div class="content">
 			<div id = "leftColumn">
 				<div id = "introBox">
-					<p id="introTitle">Anonymous speed dating</p>
-					<p id="introBox">Blink blahblabhlabhlalhla </p>
+					<p class="question">What is BLINK?</p>
+					<p class="answer">
+						BLINK is an anonymous speed dating website that matches users based on personality instead of appearance.
+					</p>
+					</br>
+					<p class="question">STEP 1: Tell us about yourself</p>
+					<p class="answer">
+						Fill out your profile and answer a survey about yourself.
+					</p>
+					</br>
+					<p class="question">STEP 2: Find a match</p>
+					<p class="answer">
+						Hit "match" to start your first "date"!
+						Based on your survey results, you will be put into a one-on-one anonymous chat.
+					</p>
+					</br>
+					<p class="question">STEP 3: Speed date</p>
+					<p class="answer">
+						You will have exactly 2 minutes to get to know this person.
+						When time is up, you will either "reveal" or "reject".
+						If and only if both of you choose "reveal", your profiles will become visible to each other and you may stay in the chat indefinitely.
+						If at least one of you chose "reject", the date is over.
+						Hit "match" again to move on to your next date!
+					</p>
 				</div>
 				<br>
 				<p id="statsTitle">Today's Statistics</p>
