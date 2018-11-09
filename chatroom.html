@@ -9,10 +9,10 @@
 	<script src="nav.js"></script>
   <style>
   	
-    body {
+    .content {
+    	height: 600px;
       box-sizing: border-box;
       margin: 0;
-      padding: 13px;
       display: flex;
       flex-direction: column;
       max-height: 100vh;
@@ -51,6 +51,7 @@
     }
     .message-form__button {
       margin: 10px;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -61,151 +62,155 @@
 			<a href="profile.jsp">Profile</a>
 			<a href="survey.jsp">Survey</a>
 		</div>
-  <div class="members-count">-</div>
-  <div class="members-list">-</div>
-  <div class="messages"></div>
-  <form class="message-form" onsubmit="return false;">
-    <input class="message-form__input" placeholder="Type a message.." type="text"/>
-    <input class="message-form__button" value="Send" type="submit"/>
-  </form>
-  <script type="text/javascript">
+		<div class="content"> 
+			<div class="members-count">-</div>
+		  <div class="members-list">-</div>
+		  <div class="messages"></div>
+		  <form class="message-form" onsubmit="return false;">
+		    <input class="message-form__input" placeholder="Type a message.." type="text"/>
+		    <input class="message-form__button" value="Send" type="submit"/>
+		  </form>
+		  <script type="text/javascript">
+		  
+		  
+		  var channelid1 = "5wDa5reT611UkHQu";
+		  var channelid2 = "gVrFPqtcIlaJW9Be";		//channel id for other channels
+		  var changelid3 = "XFfUV24GoiohFLCs";
+		  
+		  //function to swap channel id to another one here <==============================
+			  
+		  window.setTimeout(question, 10000);
+		  
+		  function question()
+		  {
+			  //websocket
+			  //true and false
+			  //decide to reveal info or not
+			  
+			  window.alert("itsa working");
+		  }
+		  
+		  const drone = new ScaleDrone(channelid1, {
+		    data: { // Will be sent out as clientData via events
+		      name: 'billybob' + ': ',			//getsessionid("username")
+		      color: getRandomColor(),
+		    },
+		  });
+		
+		  let members = [];
+		
+		  drone.on('open', error => {
+		    if (error) {
+		      return console.error(error);
+		    }
+		    console.log('Successfully connected to Scaledrone');
+		
+		    const room = drone.subscribe('observable-room');
+		    room.on('open', error => {
+		      if (error) {
+		        return console.error(error);
+		      }
+		      console.log('Successfully joined room');
+		    });
+		
+		    room.on('members', m => {
+		      members = m;
+		      updateMembersDOM();
+		    });
+		
+		    room.on('member_join', member => {
+		      members.push(member);
+		      updateMembersDOM();
+		    });
+		
+		    room.on('member_leave', ({id}) => {
+		      const index = members.findIndex(member => member.id === id);
+		      members.splice(index, 1);
+		      updateMembersDOM();
+		    });
+		
+		    room.on('data', (text, member) => {
+		      if (member) {
+		        addMessageToListDOM(text, member);
+		      } else {
+		        // Message is from server
+		      }
+		    });
+		  });
+		
+		  drone.on('close', event => {
+		    console.log('Connection was closed', event);
+		  });
+		
+		  drone.on('error', error => {
+		    console.error(error);
+		  });
+		
+		  function getRandomColor() {
+		    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+		  }
+		
+		  //------------- DOM STUFF
+		
+		  const DOM = {
+		    membersCount: document.querySelector('.members-count'),
+		    membersList: document.querySelector('.members-list'),
+		    messages: document.querySelector('.messages'),
+		    input: document.querySelector('.message-form__input'),
+		    form: document.querySelector('.message-form'),
+		  };
+		
+		  DOM.form.addEventListener('submit', sendMessage);
+		
+		  function sendMessage() {
+		    const value = DOM.input.value;
+		    if (value === '') {
+		      return;
+		    }
+		    DOM.input.value = '';
+		    drone.publish({
+		      room: 'observable-room',
+		      message: value,
+		    });
+		  }
+		
+		  function createMemberElement(member) {
+		    const { name, color } = member.clientData;
+		    const el = document.createElement('div');
+		    el.appendChild(document.createTextNode(name));
+		    el.className = 'member';
+		    el.style.color = color;
+		    return el;
+		  }
+		
+		  function updateMembersDOM() {
+		    DOM.membersCount.innerText = `${members.length} users in room:`;
+		    DOM.membersList.innerHTML = '';
+		    members.forEach(member =>
+		      DOM.membersList.appendChild(createMemberElement(member))
+		    );
+		  }
+		
+		  function createMessageElement(text, member) {
+		    const el = document.createElement('div');
+		    el.appendChild(createMemberElement(member));
+		    el.appendChild(document.createTextNode(text));
+		    el.className = 'message';
+		    return el;
+		  }
+		
+		  function addMessageToListDOM(text, member) {
+		    const el = DOM.messages;
+		    const wasTop = el.scrollTop === el.scrollHeight - el.clientHeight;
+		    el.appendChild(createMessageElement(text, member));
+		    el.scrollTop = el.scrollHeight;
+		  } 
+		  
+		  </script>
+		
+		</div>
   
-  
-  var channelid1 = "5wDa5reT611UkHQu";
-  var channelid2 = "gVrFPqtcIlaJW9Be";		//channel id for other channels
-  var changelid3 = "XFfUV24GoiohFLCs";
-  
-  //function to swap channel id to another one here <==============================
-	  
-  window.setTimeout(question, 10000);
-  
-  function question()
-  {
-	  //websocket
-	  //true and false
-	  //decide to reveal info or not
-	  
-	  window.alert("itsa working");
-  }
-  
-  const drone = new ScaleDrone(channelid1, {
-    data: { // Will be sent out as clientData via events
-      name: 'billybob' + ': ',			//getsessionid("username")
-      color: getRandomColor(),
-    },
-  });
-
-  let members = [];
-
-  drone.on('open', error => {
-    if (error) {
-      return console.error(error);
-    }
-    console.log('Successfully connected to Scaledrone');
-
-    const room = drone.subscribe('observable-room');
-    room.on('open', error => {
-      if (error) {
-        return console.error(error);
-      }
-      console.log('Successfully joined room');
-    });
-
-    room.on('members', m => {
-      members = m;
-      updateMembersDOM();
-    });
-
-    room.on('member_join', member => {
-      members.push(member);
-      updateMembersDOM();
-    });
-
-    room.on('member_leave', ({id}) => {
-      const index = members.findIndex(member => member.id === id);
-      members.splice(index, 1);
-      updateMembersDOM();
-    });
-
-    room.on('data', (text, member) => {
-      if (member) {
-        addMessageToListDOM(text, member);
-      } else {
-        // Message is from server
-      }
-    });
-  });
-
-  drone.on('close', event => {
-    console.log('Connection was closed', event);
-  });
-
-  drone.on('error', error => {
-    console.error(error);
-  });
-
-  function getRandomColor() {
-    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-  }
-
-  //------------- DOM STUFF
-
-  const DOM = {
-    membersCount: document.querySelector('.members-count'),
-    membersList: document.querySelector('.members-list'),
-    messages: document.querySelector('.messages'),
-    input: document.querySelector('.message-form__input'),
-    form: document.querySelector('.message-form'),
-  };
-
-  DOM.form.addEventListener('submit', sendMessage);
-
-  function sendMessage() {
-    const value = DOM.input.value;
-    if (value === '') {
-      return;
-    }
-    DOM.input.value = '';
-    drone.publish({
-      room: 'observable-room',
-      message: value,
-    });
-  }
-
-  function createMemberElement(member) {
-    const { name, color } = member.clientData;
-    const el = document.createElement('div');
-    el.appendChild(document.createTextNode(name));
-    el.className = 'member';
-    el.style.color = color;
-    return el;
-  }
-
-  function updateMembersDOM() {
-    DOM.membersCount.innerText = `${members.length} users in room:`;
-    DOM.membersList.innerHTML = '';
-    members.forEach(member =>
-      DOM.membersList.appendChild(createMemberElement(member))
-    );
-  }
-
-  function createMessageElement(text, member) {
-    const el = document.createElement('div');
-    el.appendChild(createMemberElement(member));
-    el.appendChild(document.createTextNode(text));
-    el.className = 'message';
-    return el;
-  }
-
-  function addMessageToListDOM(text, member) {
-    const el = DOM.messages;
-    const wasTop = el.scrollTop === el.scrollHeight - el.clientHeight;
-    el.appendChild(createMessageElement(text, member));
-    el.scrollTop = el.scrollHeight;
-  } 
-  
-  </script>
-  <footer>
+  		<footer>
 		</footer>
 </body>
 
