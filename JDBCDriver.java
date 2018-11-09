@@ -92,7 +92,7 @@ public class JDBCDriver {
 			st = conn.createStatement();
 			ps = conn.prepareStatement(getNumOnlineUsers);
 			// Only grab users who have a state "true" -- online
-			ps.setString(1, "1");
+			ps.setInt(1, 1);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				numOnlineUsers++;
@@ -106,32 +106,36 @@ public class JDBCDriver {
 	// TODO test and debug this!
 	// Returns the success rate
 	public double getSuccessRate() {
+		// first row = total matches, second row = successful matches
 		double successRate = 0;
 		int totalMatches = 0;
 		int successfulMatches = 0;
 		try {
 			st = conn.createStatement();
 			ps = conn.prepareStatement(getSuccessRate);
-			// first row = total matches, second row = successful matches
 			ps.setInt(1, 1);
-			System.out.println("1");
 			rs = ps.executeQuery();
-			totalMatches = rs.getInt("matches");
-//			System.out.println(totalMatches);
-//			//ps.setInt(1, 2);
-			//rs = ps.executeQuery();
-			//successfulMatches = rs.getInt(2);
-			System.out.println(totalMatches);
-
-		} catch (SQLException e) {
+			while(rs.next()) {
+				totalMatches = rs.getInt("matches");
+			}
+			
+			ps.setInt(1, 2);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				successfulMatches = rs.getInt("matches");
+			}
+			System.out.println("222");
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-//		if (totalMatches > 0) {
-//			successRate = successfulMatches/totalMatches;
-//		} else {
-//			successRate = 0;
-//		}
-		return 1.0;
+		
+		if (totalMatches > 0) {
+			successRate = successfulMatches/totalMatches;
+		} else {
+			successRate = 0;
+		}
+		return successRate;
+
 	}
 
 	// connects to the database
