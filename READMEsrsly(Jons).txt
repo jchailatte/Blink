@@ -28,3 +28,5 @@ side note: is there a specific screen size we will be basing the css off of?
 made some changes to the chatroom css also so that when a lot of users are logged in,
 the part that displays the ppl inside the room will overflow
 
+attempted to add emojis to chat room...will have to figure out more about how to use the
+actual api but i do have it connected to a api
