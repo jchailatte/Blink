@@ -33,13 +33,16 @@ public class JDBCDriver {
 
 	// Database Queries
 
-	private final static String addProfile = "UPDATE 'Users' SET 'fname' = ?, 'lname' = ? WHERE userId=?";
+	private final static String addProfile = "INSERT INTO Users(lname, fname) VALUES(lname,fname)";
+
 	private final static String grabProfileData = "SELECT * FROM Users WHERE userId=?";
+
 	private final static String getNumOnlineUsers = "SELECT * FROM Users WHERE state=?";
+
 	private final static String getSuccessRate = "SELECT * FROM Stats WHERE ID=?";
 
 	//stuff to add events
-	
+
 	public JDBCDriver() {
 		try {
 			try {
@@ -51,26 +54,25 @@ public class JDBCDriver {
 
 		}
 	}
-	
-	public void addProfile(String username, String lname, String fname) {
+
+	public void addProfile(String lname, String fname) {
 		try {
 			ps = conn.prepareStatement(addProfile);
 			ps.setString(1, lname);
 			ps.setString(2, fname);
-			ps.setString(3, username);
 			ps.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public String grabProfileData(String username) {
+
+	public String grabProfileData(String userId) {
 		String result = "";
 		try {
 			st = conn.createStatement();
 			ps = conn.prepareStatement(grabProfileData);
-			ps.setString(1, username);
+			ps.setString(1, userId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				String fname = rs.getString("fname");
@@ -92,10 +94,10 @@ public class JDBCDriver {
 			st = conn.createStatement();
 			ps = conn.prepareStatement(getNumOnlineUsers);
 			// Only grab users who have a state "true" -- online
-			ps.setString(1, "1");
+			ps.setString(1, true);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				numOnlineUsers++;
+				numUsers++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,45 +107,39 @@ public class JDBCDriver {
 
 	// TODO test and debug this!
 	// Returns the success rate
-	public double getSuccessRate() {
-		double successRate = 0;
+	public float getSuccessRate() {
+		float successRate = 0;
 		int totalMatches = 0;
 		int successfulMatches = 0;
 		try {
 			st = conn.createStatement();
 			ps = conn.prepareStatement(getSuccessRate);
 			// first row = total matches, second row = successful matches
-			ps.setInt(1, 1);
-			System.out.println("1");
+			ps.setString(1, 1);
 			rs = ps.executeQuery();
-			totalMatches = rs.getInt("matches");
-//			System.out.println(totalMatches);
-//			//ps.setInt(1, 2);
-			//rs = ps.executeQuery();
-			//successfulMatches = rs.getInt(2);
-			System.out.println(totalMatches);
+			totalMatches = rs.getString(2);
+			ps.setString(1, 2);
+			rs = ps.executeQuery();
+			successfulMatches = rs.getString(2);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		if (totalMatches > 0) {
-//			successRate = successfulMatches/totalMatches;
-//		} else {
-//			successRate = 0;
-//		}
-		return 1.0;
+		if (totalMatches > 0) {
+			successRate = successfulMatches/totalMatches;
+		} else {
+			successRate = 0;
+		}
+		return successRate;
 	}
 
 	// connects to the database
 	public static boolean setConn() {
-
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BlinkData?user=root&password=Yudeveloper1506!&useSSL=false");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return true;
 	}
 }
-

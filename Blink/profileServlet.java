@@ -36,7 +36,6 @@ public class profileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String username = request.getParameter("username");
 		String lname = request.getParameter("lname");
 		String fname = request.getParameter("fname");
 			
@@ -48,9 +47,8 @@ public class profileServlet extends HttpServlet {
 		}
 		else {
 			System.out.println("Access");
-			driver.addProfile(username, lname, fname);
-			System.out.println("reach");
-			//HttpSession userChosen = request.getSession(true);
+			driver.addProfile(lname, fname);
+			HttpSession userChosen = request.getSession(true);
 			//userChosen.setAttribute("fullName", fullName);
 		}
 	}

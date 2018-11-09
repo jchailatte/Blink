@@ -15,6 +15,8 @@ CREATE TABLE Users (
     profileImg varchar(50) not null
 );
 
+INSERT INTO Users (username,fname,lname,state,password,email,profileImg) VALUES("yuhyunch","yuhyun","Chung",1,"password","yuhyunch@usc.edu","dddx");
+
 CREATE TABLE Guests(
 	guestID int(11) primary key not null auto_increment,
     fname varchar(50) not null,
@@ -41,7 +43,7 @@ CREATE TABLE Survey(
 -- Statistics for homepage
 CREATE TABLE Stats(
 	ID int(11) primary key not null auto_increment,
-		matches int(11) not null,
+		matches int(11) not null
 );
 
 -- First row: total number of matches
