@@ -21,6 +21,22 @@
 			height: 100%;
 			float:right;
 		}
+		#statsTitle {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 30px;
+		}
+		.statsSmall {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+		}
+		#introTitle {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 30px;
+		}
+		#introBox {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+		}
 	</style>
 	<body>
 		<!-- Header -->
@@ -31,13 +47,18 @@
 		<!-- Content -->
 		<div class="content">
 			<div id = "leftColumn">
-				<p>STATISTICS</p>
-				<p>Online Users: </p><p id = "numOnlineUsers"></p>
-        		<p>Success Rate: </p><p id = "successRate"></p>
+				<div id = "introBox">
+					<p id="introTitle">Anonymous speed dating</p>
+					<p id="introBox">Blink blahblabhlabhlalhla </p>
+				</div>
+				<br>
+				<p id="statsTitle">Today's Statistics</p>
+				<p class="statsSmall">Online Users: </p><p id = "numOnlineUsers"></p>
+        		<p class="statsSmall">Success Rate: </p><p id = "successRate"></p>
 			</div>
 			<div id = "rightColumn">
 				<!-- Continuing User Login -->
-				<h2>ContinuingUser</h2>
+				<p class="loginTitle">Continuing User</p>
 				<form id="loginForm1" method="POST" onsubmit="loginContinuingUser();">
 					<input id="username1" type="text" placeholder="Username">
 					<br><input id="password1" type="text" placeholder="Password">
@@ -46,7 +67,7 @@
 				</form>
 				<br>
 				<!-- New User Login -->
-				<h2>New User</h2>
+				<p class="loginTitle">New User</p>
 				<form id="loginForm2" method="POST" onsubmit="loginNewUser();">
 					<input id="username2" type="text" placeholder="Username">
 					<br><input id="password2" type="text" placeholder="Password">
@@ -55,7 +76,7 @@
 				</form>
 				<br>
 				<!-- Guest Login -->
-				<h2>Guest</h2>
+				<p>Guest</p>
 				<form id="loginForm3" method="POST" onsubmit="loginGuest();">
 					<br><button type="button" onclick="loginGuest()" value="Login">Login</button>
 				</form>
