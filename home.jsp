@@ -58,8 +58,6 @@
 				<!-- Guest Login -->
 				<h2>Guest</h2>
 				<form id="loginForm3" method="POST" onsubmit="loginGuest();">
-					<input id="username3" type="text" placeholder="Username">
-					<span id="errormsg3"></span>
 					<br><button type="button" onclick="loginGuest()" value="Login">Login</button>
 				</form>
 			</div>
