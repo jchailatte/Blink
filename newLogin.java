@@ -1,4 +1,5 @@
-package Blink;
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -8,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,17 +16,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
- * Servlet implementation class login
+ * Servlet implementation class newLogin
  */
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/newLogin")
+public class newLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public login() {
+    public newLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,11 +43,9 @@ public class login extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Connection conn=null;
 		Statement st= null;
 		ResultSet rs=null;
-		ResultSet rs2=null;
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		HttpSession s= request.getSession();
@@ -64,20 +63,16 @@ public class login extends HttpServlet {
 				ps=conn.prepareStatement("SELECT * FROM Users WHERE username=?");
 				ps.setString(1, username);
 				rs=ps.executeQuery();
-				if(!rs.next()) {
-					out.println("<br> This username doesn't exist. Click the botton below to create a new user.");
+				if(rs.next()) {
+					out.println("<br> This username already exist. Please pick another one.");
 				}else {
-					ps2=conn.prepareStatement("SELECT * FROM Users WHERE username=? AND password=?");
+					ps2=conn.prepareStatement("INSERT INTO `BlinkData`.`Users` (`username`, `password`) VALUES (?, ?);");
 					ps2.setString(1, username);
 					ps2.setString(2, password);
-					rs2=ps2.executeQuery();
-					if(!rs2.next()) { 
-						out.println("<br> Password doesn't match the username.");
-					}else {
-						s.removeAttribute("username");
-						s.setAttribute("username",username);
-						out.println("");
-					}
+					ps2.executeUpdate();
+					out.println("");
+					s.removeAttribute("username");
+					s.setAttribute("username",username);
 				}
 			}
 		}catch(SQLException sqle) {
