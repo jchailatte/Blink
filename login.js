@@ -11,7 +11,7 @@ function loginContinuingUser() {
 			password: password
 		},
 		type:'post',
-		success: function(response) {
+		success: function(result) {
 			result = result.trim();
 			var n = result.localeCompare("");
 			console.log(result);
@@ -38,7 +38,7 @@ function loginNewUser() {
 			password: password
 		},
 		type:'post',
-		success: function(response) {
+		success: function(result) {
 			// TODO
 			/* The newLogin server needs to:
 			 * 
@@ -48,6 +48,16 @@ function loginNewUser() {
 			 * 2.) otherwise, add the user to the database
 			 * and redirect the user to the profile page
 			*/
+			
+			result = result.trim();
+			var n = result.localeCompare("");
+			console.log(result);
+			console.log(n);
+			if (n==0) {
+				window.location = 'profile.jsp';
+			} else {
+				$("#errormsg2").html(result);
+			}
 		}
 	});  
 }
@@ -56,14 +66,7 @@ function loginNewUser() {
 function loginGuest() {
 	var username = document.getElementById("username3").value;
 	console.log("username: " + username);
-	$.ajax({
-		url:"login",
-		data:{
-			username: username,
-		},
-		type:'post',
-		success: function(response) {
-			// TODO i have no idea what to do here :( 
-		}
-	});  
+	window.sessionStorage.setItem('username', username);
+	console.log(sessionStorage.getItem('username'));
+	window.location = 'guestProfile.jsp';
 }
