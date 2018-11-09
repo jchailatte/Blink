@@ -64,9 +64,5 @@ function loginNewUser() {
 
 // Guest Login
 function loginGuest() {
-	var username = document.getElementById("username3").value;
-	console.log("username: " + username);
-	window.sessionStorage.setItem('username', username);
-	console.log(sessionStorage.getItem('username'));
-	window.location = 'guestProfile.jsp';
+	window.location = 'guestChatroom.html';
 }
