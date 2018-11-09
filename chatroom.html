@@ -5,7 +5,10 @@
   <!--<script type='text/javascript' src='http://0.0.0.0:8080/scaledrone.js'></script>-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="nav.css" />
+	<script src="nav.js"></script>
   <style>
+  	
     body {
       box-sizing: border-box;
       margin: 0;
@@ -52,6 +55,12 @@
   </style>
 </head>
 <body>
+	<!-- Header -->
+		<div id = "navbar">
+			<a href="home.jsp">BLINK</a>
+			<a href="profile.jsp">Profile</a>
+			<a href="survey.jsp">Survey</a>
+		</div>
   <div class="members-count">-</div>
   <div class="members-list">-</div>
   <div class="messages"></div>
@@ -60,6 +69,7 @@
     <input class="message-form__button" value="Send" type="submit"/>
   </form>
   <script type="text/javascript">
+  
   
   var channelid1 = "5wDa5reT611UkHQu";
   var channelid2 = "gVrFPqtcIlaJW9Be";		//channel id for other channels
@@ -73,6 +83,7 @@
   {
 	  //websocket
 	  //true and false
+	  //decide to reveal info or not
 	  
 	  window.alert("itsa working");
   }
@@ -194,5 +205,8 @@
   } 
   
   </script>
+  <footer>
+		</footer>
 </body>
+
 </html>

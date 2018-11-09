@@ -27,8 +27,6 @@
 		<!-- Header -->
 		<div id = "navbar">
 			<a href="home.jsp">BLINK</a>
-			<a href="profile.jsp">Profile</a>
-			<a href="survey.jsp">Survey</a>
 		</div>
 
 		<!-- Content -->
