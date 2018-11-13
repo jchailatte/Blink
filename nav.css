@@ -30,12 +30,26 @@ footer {
 	font-size: 30px;
 }
 
+a:hover {
+    background-color: #ff9999;
+} 
+
+#logo
+{
+  	float:left;
+   	padding-left:20px;
+   	padding-right:10px;
+   	width: 100px;
+   	height: auto;
+}
+
 /* Page content */
 .content {
 	padding: 16px;
 	overflow: auto;
 	height: auto;
 }
+
 
 /* The sticky class is added to the navbar with JS
 	when it reaches its scroll position */
