@@ -12,7 +12,7 @@
 	</head>
 	<style>
 		#leftColumn{
-			width: 66%;
+			width: 50%;
 			height: 100%;
 			float: left;
 		}
@@ -21,6 +21,12 @@
 			height: 100%;
 			float:right;
 			font-family: Arial, Helvetica, sans-serif;
+		}
+		#middleColumn{
+			width: 16%;
+			height: 100%;
+			float: right;
+			padding-top: 0;
 		}
 		#statsTitle {
 			font-family: Arial, Helvetica, sans-serif;
@@ -38,10 +44,19 @@
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 10px;
 		}
+		.line {
+			border-top: 10px solid #dd661c;
+			border-radius: 3px;
+		}
+		.loginTitle {
+			font-size: 25px;
+		}
+		
 	</style>
 	<body>
 		<!-- Header -->
 		<div id = "navbar">
+			<img src="https://i.imgur.com/gjMbF0s.png" id="logo" >
 			<a href="home.jsp">BLINK</a>
 		</div>
 
@@ -79,8 +94,10 @@
 				<p class="statsSmall">Online Users: </p><p id = "numOnlineUsers"></p>
         		<p class="statsSmall">Success Rate: </p><p id = "successRate"></p>
 			</div>
+	
 			<div id = "rightColumn">
 				<!-- Continuing User Login -->
+				<hr class="line">
 				<p class="loginTitle">Continuing User</p>
 				<form id="loginForm1" method="POST" onsubmit="loginContinuingUser();">
 					<input id="username1" type="text" placeholder="Username">
@@ -90,6 +107,7 @@
 				</form>
 				<br>
 				<!-- New User Login -->
+				<hr class="line">
 				<p class="loginTitle">New User</p>
 				<form id="loginForm2" method="POST" onsubmit="loginNewUser();">
 					<input id="username2" type="text" placeholder="Username">
@@ -99,10 +117,14 @@
 				</form>
 				<br>
 				<!-- Guest Login -->
-				<p>Guest</p>
+				<hr class="line">
+				<p class="loginTitle">Guest</p>
 				<form id="loginForm3" method="POST" onsubmit="loginGuest();">
 					<br><button type="button" onclick="loginGuest()" value="Login">Login</button>
 				</form>
+			</div>
+			<div id = "middleColumn">
+				<img src="https://i.imgur.com/ptmqQvw.png">
 			</div>
 		</div>
 
