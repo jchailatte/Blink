@@ -12,8 +12,11 @@
 	<body>
 		<div class="signedInErrorMessage"></div>
         <form id="myForm" role="form">
-        	Name: <input id="name" name="name" id="surveyPageName"><div id="surveyPageError1"></div> <br> <br>
-        	Age: <input id="age" name="age" id="surveyPageAge"><div id="surveyPageError2"></div> <br> <br>
+        
+	       	Age: <input name="age" id="surveyPageAge" value = ""><div id="surveyPageAgeError"></div> 
+	       	
+	       	<br> <br>
+        	
         	Gender
         	<p>
         		<input type="radio" name="gender" value="male" id="surveyPageGender1"> Male<input type="radio" name="gender" value="female" id="surveyPageGender2"> Female <div id="surveyPageError3"></div>
@@ -56,36 +59,41 @@
 			
 		</form>
 		<script>
-			$.ajax({
-		        url: 'getSurveyPageDataBLINK',
-		        type: 'POST',
-		        success: function(response) {
-		        	console.log(response);
-					processSurveyPageData(response);
-		        },
-		        error: function(error) {
-		            console.log(error);
-		        }
-			});
+		
+			window.onload = getSurveyPageData;
 			
+			function getSurveyPageData(){
+				
+					$.ajax({
+				        url: 'displaySurveyDataServlet',
+			    	    type: 'POST',
+			        	success: function(response) {
+							processSurveyPageData(response);
+			        	},
+			        	error: function(error) {
+			            	console.log(error);
+			        	}
+					});
+				
+			}
+		
+
 			function processSurveyPageData(response)
 			{
 				var data = response.split(',', 100);
-				var name = data[0];
-				var age = data[1];
-				var gender = data[2];
-				var genderPreference = data[3];
-				var indoorOutdoor = data[4];
-				var earlyBirdNightOwl = data[5];
-				var catDog = data[6];
-				var music = data[7];
-				var sports = data[8];
-				var workout = data[9];
-				var idealDate = data[10];
+				var age = data[0];
+				var gender = data[1];
+				var genderPreference = data[2];
+				var indoorOutdoor = data[3];
+				var earlyBirdNightOwl = data[4];
+				var catDog = data[5];
+				var music = data[6];
+				var sports = data[7];
+				var workout = data[8];
+				var idealDate = data[9];
 				
-				document.getElementById('name').placeholder = name;
-				document.getElementById('age').placeholder = age;
-				document.getElementById('idealDate').placeholder = idealDate;
+				document.getElementById('surveyPageAge').value = age;
+				document.getElementById('surveyPageIdealDate').value = idealDate;
 				
 				if (gender == "male")
 				{
@@ -222,287 +230,252 @@
 			
 			function validate()
 			{
+				
 				var containsError = false;
-				//validate name
-				if (document.getElementById('surveyPageName').value == "")
-				{
-					document.getElementById('surveyPageError1').html = "Please enter your name";
-					containsError = true;
-				}
-				else
-				{
-					document.getElementById('surveyPageError1').html = "";
-					containsError = false;
-				}
 				
 				//validate age
-				if (document.getElementById('surveyPageAge').value == "")
+				var age;
+				if (document.getElementById("surveyPageAge").value == "")
 				{
-					document.getElementById('surveyPageError2').html = "Please enter your age";
+					console.log("age is not defined.");
+					document.getElementById("surveyPageAgeError").innerHTML = "Please enter your age";
 					containsError = true;
 				}
 				else
-				{
-					document.getElementById('surveyPageError2').html = "";
-					containsError = false;
+				{	
+					document.getElementById('surveyPageAgeError').innerHTML = "";
+					age = document.getElementById("surveyPageAge").value;
 				}
 				
 				//validate gender
+				var gender;
 				if (document.getElementById('surveyPageGender1').checked == false && document.getElementById('surveyPageGender2').checked == false)
 				{
-					document.getElementById('surveyPageError3').html = "Please select your gender";
+					document.getElementById('surveyPageError3').innerHTML = "Please select your gender";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError3').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError3').innerHTML = "";
+					if (document.getElementById('surveyPageGender1').checked == true && document.getElementById('surveyPageGender2').checked == false)
+					{
+						gender = "male";
+					}
+					else if (document.getElementById('surveyPageGender1').checked == false && document.getElementById('surveyPageGender2').checked == true)
+					{
+						gender = "female";
+					}
 				}
 				
 				//validate gender preference
+				var genderPreference;
 				if (document.getElementById('surveyPageGenderPreference1').checked == false && document.getElementById('surveyPageGenderPreference2').checked == false)
 				{
-					document.getElementById('surveyPageError4').html = "Please select your gender preference";
+					document.getElementById('surveyPageError4').innerHTML = "Please select your gender preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError4').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError4').innerHTML = "";
+					if (document.getElementById('surveyPageGenderPreference1').checked == true && document.getElementById('surveyPageGenderPreference2').checked == false)
+					{
+						genderPreference = "male";
+					}
+					else if (document.getElementById('surveyPageGenderPreference1').checked == false && document.getElementById('surveyPageGenderPreference2').checked == true)
+					{
+						genderPreference = "female";
+					}
 				}
 				
 				//validate indoor/outdoor
+				var indoor;
 				if (document.getElementById('surveyPageIndoorOutdoor1').checked == false && document.getElementById('surveyPageIndoorOutdoor2').checked == false)
 				{
-					document.getElementById('surveyPageError5').html = "Please select your indoor/outdoor preference";
+					document.getElementById('surveyPageError5').innerHTML = "Please select your indoor/outdoor preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError5').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError5').innerHTML = "";
+					if (document.getElementById('surveyPageIndoorOutdoor1').checked == true && document.getElementById('surveyPageIndoorOutdoor2').checked == false)
+					{
+						indoor = "indoor";
+					}
+					else if (document.getElementById('surveyPageIndoorOutdoor1').checked == false && document.getElementById('surveyPageIndoorOutdoor2').checked == true)
+					{
+						indoor = "outdoor";
+					}
 				}
 				
 				//validate early bird/night owl
+				var earlyBird;
 				if (document.getElementById('surveyPageEarlyBird1').checked == false && document.getElementById('surveyPageEarlyBird2').checked == false)
 				{
-					document.getElementById('surveyPageError6').html = "Please select your early bird/night owl preference";
+					document.getElementById('surveyPageError6').innerHTML = "Please select your early bird/night owl preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError6').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError6').innerHTML = "";
+					if (document.getElementById('surveyPageEarlyBird1').checked == true && document.getElementById('surveyPageEarlyBird2').checked == false)
+					{
+						earlyBird = "earlyBird";
+					}
+					else if (document.getElementById('surveyPageEarlyBird1').checked == false && document.getElementById('surveyPageEarlyBird2').checked == true)
+					{
+						earlyBird = "nightOwl";
+					}
 				}
 				
 				//validate cat/dog
+				var catDog;
 				if (document.getElementById('surveyPageCatDog1').checked == false && document.getElementById('surveyPageCatDog2').checked == false)
 				{
-					document.getElementById('surveyPageError7').html = "Please select your cat/dog preference";
+					document.getElementById('surveyPageError7').innerHTML = "Please select your cat/dog preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError7').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError7').innerHTML = "";
+					if (document.getElementById('surveyPageCatDog1').checked == true && document.getElementById('surveyPageCatDog2').checked == false)
+					{
+						catDog = "cat";
+					}
+					else if (document.getElementById('surveyPageCatDog1').checked == false && document.getElementById('surveyPageCatDog2').checked == true)
+					{
+						catDog = "dog";
+					}
 				}
 				
 				//validate music
+				var music;
 				if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
 				{
-					document.getElementById('surveyPageError8').html = "Please select your music preference";
+					document.getElementById('surveyPageError8').innerHTML = "Please select your music preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError8').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError8').innerHTML = "";
+					if (document.getElementById('surveyPageMusic1').checked == true && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
+					{
+						music = "classical";
+					}
+					else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == true && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
+					{
+						music = "pop";
+					}
+					else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == true && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
+					{
+						music = "hipHop";
+					}
+					else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == true && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
+					{
+						music = "rock";
+					}
+					else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == true && document.getElementById('surveyPageMusic6').checked == false)
+					{
+						music = "country";
+					}
+					else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == true)
+					{
+						music = "international";
+					}
 				}
 				
 				//validate sports 
+				var sports;
 				if (document.getElementById('surveyPageSports1').checked == false && document.getElementById('surveyPageSports2').checked == false)
 				{
-					document.getElementById('surveyPageError9').html = "Please select your sports preference";
+					document.getElementById('surveyPageError9').innerHTML = "Please select your sports preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError9').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError9').innerHTML = "";
+					if (document.getElementById('surveyPageSports1').checked == true && document.getElementById('surveyPageSports2').checked == false)
+					{
+						sports = "yes";
+					}
+					else if (document.getElementById('surveyPageSports1').checked == false && document.getElementById('surveyPageSports2').checked == true)
+					{
+						sports = "no";
+					}
 				}
 				
 				//validate workout
+				var workout;
 				if (document.getElementById('surveyPageWorkout1').checked == false && document.getElementById('surveyPageWorkout2').checked == false)
 				{
-					document.getElementById('surveyPageError10').html = "Please select your workout preference";
+					document.getElementById('surveyPageError10').innerHTML = "Please select your workout preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError10').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError10').innerHTML = "";
+					if (document.getElementById('surveyPageWorkout1').checked == true && document.getElementById('surveyPageWorkout2').checked == false)
+					{
+						workout = "yes";
+					}
+					else if (document.getElementById('surveyPageSports1').checked == false && document.getElementById('surveyPageSports2').checked == true)
+					{
+						workout= "no";
+					}
 				}
 				
 				//validate ideal date
+				var idealDate;
 				if (document.getElementById('surveyPageIdealDate').value == "")
 				{
-					document.getElementById('surveyPageError11').html = "Please input your ideal date preference";
+					document.getElementById('surveyPageError11').innerHTML = "Please input your ideal date preference";
 					containsError = true;
 				}
 				else
 				{
-					document.getElementById('surveyPageError11').html = "";
-					containsError = false;
+					document.getElementById('surveyPageError11').innerHTML = "";
+					idealDate = document.getElementById("surveyPageIdealDate").value;
 				}
 				
 				if (!containsError)
 				{
-					sendFormData();
+					var username;
+					
+					console.log("hey");
+					console.log(age);
+					$.ajax({
+				        url: 'surveyServlet',
+				        data:{
+							age: age,
+							gender: gender,
+							genderPreference: genderPreference,
+							indoor: indoor,
+							earlyBird: earlyBird,
+							catDog: catDog,
+							music: music,
+							sports: sports,
+							workout: workout,
+							idealDate: idealDate
+						},
+				        type: 'POST',
+				        success: function(response){
+							
+				        	username = response;
+							
+						}
+					});
+					sessionStorage.setItem('username', username);
+					console.log("survey: " + username);
+					window.location.href = 'chatroom.jsp';
 				}
+				
+				
 			}
-			
-			function sendFormData()
-			{
-				document.getElementById('hiddenInput1').html = document.getElementById('surveyPageName').html;
-				document.getElementById('hiddenInput2').html = document.getElementById('surveyPageAge').html;
-				document.getElementById('hiddenInput11').html = document.getElementById('surveyPageIdealDate').html;
-				
-				//gender
-				if (document.getElementById('surveyPageGender1').checked == true && document.getElementById('surveyPageGender2').checked == false)
-				{
-					document.getElementById('hiddenInput3').html = "male";
-				}
-				else if (document.getElementById('surveyPageGender1').checked == false && document.getElementById('surveyPageGender2').checked == true)
-				{
-					document.getElementById('hiddenInput3').html = "female";
-				}
-				
-				//gender preference
-				if (document.getElementById('surveyPageGenderPreference1').checked == true && document.getElementById('surveyPageGenderPreference2').checked == false)
-				{
-					document.getElementById('hiddenInput4').html = "male";
-				}
-				else if (document.getElementById('surveyPageGenderPreference1').checked == false && document.getElementById('surveyPageGenderPreference2').checked == true)
-				{
-					document.getElementById('hiddenInput4').html = "female";
-				}
-				
-				//indoor 
-				if (document.getElementById('surveyPageIndoorOutdoor1').checked == true && document.getElementById('surveyPageIndoorOutdoor2').checked == false)
-				{
-					document.getElementById('hiddenInput5').html = "indoor";
-				}
-				else if (document.getElementById('surveyPageIndoorOutdoor1').checked == false && document.getElementById('surveyPageIndoorOutdoor2').checked == true)
-				{
-					document.getElementById('hiddenInput5').html = "outdoor";
-				}
-				
-				//early bird 
-				if (document.getElementById('surveyPageEarlyBird1').checked == true && document.getElementById('surveyPageEarlyBird2').checked == false)
-				{
-					document.getElementById('hiddenInput6').html = "earlyBird";
-				}
-				else if (document.getElementById('surveyPageEarlyBird1').checked == false && document.getElementById('surveyPageEarlyBird2').checked == true)
-				{
-					document.getElementById('hiddenInput6').html = "nightOwl";
-				}
-				
-				//cat dog
-				if (document.getElementById('surveyPageCatDog1').checked == true && document.getElementById('surveyPageCatDog2').checked == false)
-				{
-					document.getElementById('hiddenInput7').html = "cat";
-				}
-				else if (document.getElementById('surveyPageCatDog1').checked == false && document.getElementById('surveyPageCatDog2').checked == true)
-				{
-					document.getElementById('hiddenInput7').html = "dog";
-				}
-				
-				//music 
-				if (document.getElementById('surveyPageMusic1').checked == true && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
-				{
-					document.getElementById('hiddenInput8').html = "classical";
-				}
-				else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == true && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
-				{
-					document.getElementById('hiddenInput8').html = "pop";
-				}
-				else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == true && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
-				{
-					document.getElementById('hiddenInput8').html = "hipHop";
-				}
-				else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == true && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == false)
-				{
-					document.getElementById('hiddenInput8').html = "rock";
-				}
-				else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == true && document.getElementById('surveyPageMusic6').checked == false)
-				{
-					document.getElementById('hiddenInput8').html = "country";
-				}
-				else if (document.getElementById('surveyPageMusic1').checked == false && document.getElementById('surveyPageMusic2').checked == false && document.getElementById('surveyPageMusic3').checked == false && document.getElementById('surveyPageMusic4').checked == false && document.getElementById('surveyPageMusic5').checked == false && document.getElementById('surveyPageMusic6').checked == true)
-				{
-					document.getElementById('hiddenInput8').html = "international";
-				}
-				
-				//sports
-				if (document.getElementById('surveyPageSports1').checked == true && document.getElementById('surveyPageSports2').checked == false)
-				{
-					document.getElementById('hiddenInput9').html = "yes";
-				}
-				else if (document.getElementById('surveyPageSports1').checked == false && document.getElementById('surveyPageSports2').checked == true)
-				{
-					document.getElementById('hiddenInput9').html = "no";
-				}
-				
-				//workout
-				if (document.getElementById('surveyPageWorkout1').checked == true && document.getElementById('surveyPageWorkout2').checked == false)
-				{
-					document.getElementById('hiddenInput10').html = "yes";
-				}
-				else if (document.getElementById('surveyPageSports1').checked == false && document.getElementById('surveyPageSports2').checked == true)
-				{
-					document.getElementById('hiddenInput10').html = "no";
-				}
-				
-				$.ajax({
-			        url: 'getSurveyPageDataBLINK',
-			        data: $(myHiddenForm).serialize(),
-			        type: 'POST',
-			        success: function(response) {
-			        	console.log(response);
-			        	
-			        	if (response != "")
-		        		{
-		        			window.location.href = 'chat.html';
-		        		}
-			        	else
-			        	{
-			        		document.getElementById('signedInErrorMessage').html = "Must be signed in to update survey page data";
-			        	}
-						
-			        },
-			        error: function(error) {
-			            console.log(error);
-			        }
-				});
-			}
+		
 			
 		</script>
  			
 	</body>
-	<form id="myHiddenForm" role="form">
-		<input id="hiddenInput1" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput2" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput3" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput4" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput5" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput6" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput7" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput8" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput9" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput10" name="hiddenSearch" type="hidden">
-		<input id="hiddenInput11" name="hiddenSearch" type="hidden">
-	</form>
-	
+
 	<footer>
 	</footer>
 </html>
