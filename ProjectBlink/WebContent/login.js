@@ -39,22 +39,29 @@ function loginNewUser() {
 		},
 		type:'post',
 		success: function(result) {
-			// TODO
-			/* The newLogin server needs to:
-			 * 
-			 * 1.) check if username already exists 
-			 * and display an error if it does
-			 * 
-			 * 2.) otherwise, add the user to the database
-			 * and redirect the user to the profile page
-			*/
-			
-
+			result = result.trim();
+			console.log(result);
+			if (result == "") {
+				window.location = 'profile.jsp';
+			} else {
+				$("#errormsg2").html(result);
+			}
 		}
 	});  
 }
 
 // Guest Login
 function loginGuest() {
-	window.location = 'guestChatroom.html';
+	var username = document.getElementById("username3").value;
+	console.log("username: " + username);
+	$.ajax({
+		url:"login",
+		data:{
+			username: username,
+		},
+		type:'post',
+		success: function(response) {
+			// TODO i have no idea what to do here :( 
+		}
+	});  
 }
