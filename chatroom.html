@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
-  <script type='text/javascript' src = 'http://cdn.emojidex.com/scripts/javascript/emojidex-client.min.js'></script>
-  <!--<script type='text/javascript' src='http://0.0.0.0:8080/scaledrone.js'></script>-->
+
+  <link rel="stylesheet" type="text/css" href="emojidex.min.css" />
+  <script src="emojidex.min.js"></script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" type="text/css" href="nav.css" />
-	<script src="nav.js"></script>
+  <script src="nav.js"></script>
   <style>
   	
     .content {
@@ -47,7 +50,7 @@
       height:35px;
     }
     .message-form__input {
-      width: 90%;
+      width: 80%;
       border: 1px solid #dfdfdf;
       padding: 10px 15px;
       font-size: 16px;
@@ -62,14 +65,7 @@
       border-radius: 3px;
     }
     
-    #logo
-    {
-    	float:left;
-    	padding-left:20px;
-    	padding-right:10px;
-    	width: 100px;
-    	height: auto;
-    }
+
   </style>
 </head>
 <body>
@@ -87,17 +83,25 @@
 		  <form class="message-form" onsubmit="return false;">
 		    <input class="message-form__input" placeholder="Type a message.." type="text"/>
 		    <input class="message-form__button" value="Send" type="submit"/>
+		   	<button class = "message-form__button" id = "emoji_pa" type="button" > Emojis</button>
 		  </form>
-		  <script type="text/javascript">
 		  
+		  
+	<script type="text/javascript">	  
 		  
 		  var channelid1 = "5wDa5reT611UkHQu";
 		  var channelid2 = "gVrFPqtcIlaJW9Be";		//channel id for other channels
 		  var changelid3 = "XFfUV24GoiohFLCs";
 		  
-		  //function to swap channel id to another one here <==============================
+		  function swapid()							//call this after matching two ppl
+		  {
+			  var temp = channelid1;
+			  channelid1 = channelid2;
+			  channelid2 = channelid3;
+			  channelid3 = temp;
+		  }
 			  
-		  window.setTimeout(question, 10000);
+		  //window.setTimeout(question, 10000);
 		  
 		  function question()
 		  {
@@ -107,20 +111,12 @@
 			  
 			  window.alert("itsa working");
 		  }
-		  
-		  emojidex = new EmojidexClient({
-			  // wait initialization
-			  onReady: (EC) => {
-				  emojidex.User.login({'authtype': 'token', 'username': 'Gale2132', 'auth_token': '7a26152d82edd1a8d9b03436d2fa12698050e9077af83ffe'});			  }
-			});
-		  
-		  //function findemoji()
-		  //some crap i will figure out later
-		 	//{
-			  //emojidex.Search.search(search_word, result_emoji => {
-			//	  console.log(result_emoji);
-			//	});
-		  //}
+		  	 	   
+		  window.onload = setbutton;
+		  function setbutton()
+		  {
+		  	$("#emoji_pa").emojidexPalette();
+		  }
 		  
 		  const drone = new ScaleDrone(channelid1, {
 		    data: { // Will be sent out as clientData via events
