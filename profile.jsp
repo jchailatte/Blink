@@ -15,16 +15,16 @@
 		<div id = "navbar">
 			<a href="home.jsp">BLINK</a>
 			<a href="profile.jsp">Profile</a>
-			<a href="survey.jsp">Survey</a>
+			<a href="survey.html">Survey</a>
 		</div>
 		
 		<!-- Content -->
 		<div class="content">
 			<form name="myProfile">
 				
-				<input type ="text" id ="lname" value ="lname">
+				<input type ="text" id ="lname" value ="lname"><span id="errormsg1"></span>
 				<br/>
-				<input type ="text" id ="fname" value ="fname">
+				<input type ="text" id ="fname" value ="fname"><span id="errormsg2"></span>
 				<br/>
 				<input type="button" name ="Submit" value="Submit" onclick="insert_profile()"></input>
 					
@@ -41,11 +41,9 @@
 		window.onload = displayData;
 		
 		function displayData(){
-			var username = sessionStorage.getItem("username");
  			$.ajax({
 				url:"displayDataServlet",
 				data:{
-					username: 1
 				},
 				type: 'post',
  				success: function(response){
@@ -63,7 +61,26 @@
 			var username = sessionStorage.getItem("username");
 			
 			var lname = document.getElementById("lname").value;
+			var error = false;
+			if(lname.length==0){
+				document.getElementById("errormsg1").innerHTML="Please enter a lname";
+				error = true;
+			}else{
+				document.getElementById("errormsg1").innerHTML="";
+			}
+			
 			var fname = document.getElementById("fname").value;
+			if(fname.length==0){
+				document.getElementById("errormsg2").innerHTML="Please enter a fname";
+				error = true;
+			}else{
+				document.getElementById("errormsg2").innerHTML="";
+			}
+			
+			if(error==true){
+				return;
+			}
+			
 			
 			console.log(lname);
 			console.log(fname);
@@ -78,7 +95,7 @@
 				type: 'post',
 				cache: false
 			});
-			//window.location.replace("");
+			window.location.replace("survey.html");
 			
 		}
 		

@@ -47,7 +47,7 @@ public class profileServlet extends HttpServlet {
 			System.out.println("Cannot Access Database");
 		}
 		else {
-			System.out.println("Access");
+			System.out.println("Access to profileServlet");
 			driver.addProfile(username, lname, fname);
 			System.out.println("reach");
 			//HttpSession userChosen = request.getSession(true);
