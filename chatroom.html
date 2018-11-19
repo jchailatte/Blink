@@ -64,6 +64,18 @@
       background-color: #ff9999;
       border-radius: 3px;
     }
+    #timer
+    {
+    	float:right;
+    	width:90px;
+    	height:50px;
+    	background-color:white;
+    	font-size: 45px;
+		text-align:center;
+    	margin-top:5px;
+    	margin-right:15px;
+    	border-radius: 2px;
+    }
     
 
   </style>
@@ -71,10 +83,11 @@
 <body>
 	<!-- Header -->
 		<div id = "navbar"> 
-			<img src="https://i.imgur.com/gjMbF0s.png" id="logo" >
+			<img src="https://i.imgur.com/wFPSJRj.gif" id="logo" >
 			<a href="home.jsp">BLINK</a>
 			<a href="profile.jsp">Profile</a>
 			<a href="survey.jsp">Survey</a>
+			<p id="timer"></p>
 		</div>
 		<div class="content"> 
 			<div class="members-count">-</div>
@@ -100,9 +113,21 @@
 			  channelid2 = channelid3;
 			  channelid3 = temp;
 		  }
-			  
-		  //window.setTimeout(question, 10000);
 		  
+		  window.onload = setbutton;
+		  window.onload = timer;
+			  
+		  function timer(){
+			    var sec = 120;
+			    var timer = setInterval(function(){
+			        document.getElementById('timer').innerHTML=sec;
+			        sec--;
+			        if (sec < 0) {
+			            clearInterval(timer);
+			        }
+			    }, 1000);
+			}
+	
 		  function question()
 		  {
 			  //websocket
@@ -112,7 +137,6 @@
 			  window.alert("itsa working");
 		  }
 		  	 	   
-		  window.onload = setbutton;
 		  function setbutton()
 		  {
 		  	$("#emoji_pa").emojidexPalette();
