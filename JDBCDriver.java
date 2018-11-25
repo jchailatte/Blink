@@ -1,5 +1,3 @@
-package Blink;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +35,7 @@ public class JDBCDriver {
 	private final static String grabProfileData = "SELECT * FROM Users WHERE userId=?";
 	private final static String getNumOnlineUsers = "SELECT * FROM Users WHERE state=?";
 	private final static String getSuccessRate = "SELECT * FROM Stats WHERE ID=?";
+	private final static String getSurv = "SELECT * FROM Survey WHERE ID=?";
 
 	//stuff to add events
 	
@@ -138,16 +137,51 @@ public class JDBCDriver {
 
 	}
 
+	public String getSurvey(int id) {
+		String temp = "";
+		
+		try {
+			st = conn.createStatement();
+			ps = conn.prepareStatement(getSurv);
+			ps.setInt(1,id);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				temp = temp + rs.getString(2) + '|';
+				temp = temp + rs.getString(3) + '|';
+				temp = temp + rs.getInt(4) + '|';
+				temp = temp + rs.getString(5) + '|';
+				temp = temp + rs.getString(6) + '|';
+				temp = temp + rs.getString(7) + '|';
+				temp = temp + rs.getString(8) + '|';
+				temp = temp + rs.getString(9) + '|';
+				temp = temp + rs.getString(10) + '|';
+				temp = temp + rs.getString(11) + '|';
+				temp = temp + rs.getString(12) + '|';
+				temp = temp + rs.getString(13);				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		System.out.println(temp);
+		return temp;
+	}
+	
 	// connects to the database
 	public static boolean setConn() {
 
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BlinkData?user=root&password=Yudeveloper1506!&useSSL=false");
+			conn = DriverManager.getConnection(
+					//VERY IMPORTANT => this will depend on ur database 
+					//(tony u should have password as root >_> almost made me spend a few hours debugging)
+					"jdbc:mysql://localhost/blinkdata?user=root&password=root&useSSL=false");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return true;
 	}
-}
 
+
+}
