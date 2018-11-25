@@ -144,7 +144,7 @@
 			});  
 			  
 		  function timer(){
-			    var sec = 1;	//120
+			    var sec = 120;	//120
 			    var timer = setInterval(function(){
 			        document.getElementById('timer').innerHTML=sec;
 			        sec--;
@@ -225,7 +225,7 @@
 
 		  const drone = new ScaleDrone(channelid1, {
 		    data: { // Will be sent out as clientData via events
-		      name: 'billybob' + ': ',			//IMPORTANT: change to getsessionid("username")
+		      name: 'billybob',			//IMPORTANT: change to getsessionid("username")
 		      color: getRandomColor(),
 		    },
 		  });
