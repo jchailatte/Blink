@@ -52,11 +52,55 @@
 			font-size: 25px;
 		}
 		
+		#username1{
+			border-radius: 3px;
+			padding: 7px;
+			margin-bottom: 5px;
+			width: 300px;
+		}
+		#password1{
+			border-radius: 3px;
+			padding: 7px;
+			margin-bottom: 5px;
+			width: 300px;
+			
+		}
+		#button1{
+			padding: 3px;
+			border-radius: 3px;
+		    background-color: #ff9999;
+		    color: white;
+			border: none;	
+			font-size: 20px;
+		}
+		
+		#username2{
+			border-radius: 3px;
+			padding: 7px;
+			margin-bottom: 5px;
+			width: 300px;
+		}
+		
+		#password2{
+			border-radius: 3px;
+			padding: 7px;
+			margin-bottom: 5px;
+			width: 300px;
+		}
+		
+		#button2{
+			padding: 3px;
+			border-radius: 3px;
+		    background-color: #ff9999;
+		    color: white;
+			border: none;	
+			font-size: 20px;
+		}
 	</style>
 	<body>
 		<!-- Header -->
 		<div id = "navbar">
-			<img src="https://i.imgur.com/gjMbF0s.png" id="logo" >
+			<img src="https://i.imgur.com/wFPSJRj.gif" id="logo" >
 			<a href="home.jsp">BLINK</a>
 		</div>
 
@@ -64,35 +108,41 @@
 		<div class="content">
 			<div id = "leftColumn">
 				<div id = "introBox">
-					<p class="question">What is BLINK?</p>
-					<p class="answer">
+				<b>	<p class="question" style = "font-size: 200%">What is BLINK?</p></b>
+					<p class="answer" style = "font-size:150%">
 						BLINK is an anonymous speed dating website that matches users based on personality instead of appearance.
 					</p>
 					</br>
-					<p class="question">STEP 1: Tell us about yourself</p>
-					<p class="answer">
+					<hr class="line">
+					</br>
+				<b> <p class="question" style = "font-size:200%">STEP 1: Tell us about yourself</p> </b>
+					<p class="answer" style = "font-size:150%">
 						Fill out your profile and answer a survey about yourself.
 					</p>
 					</br>
-					<p class="question">STEP 2: Find a match</p>
-					<p class="answer">
+				<b>	<p class="question" style = "font-size:200%">STEP 2: Find a match</p></b>
+					<p class="answer" style = "font-size:150%" >
 						Hit "match" to start your first "date"!
 						Based on your survey results, you will be put into a one-on-one anonymous chat.
 					</p>
 					</br>
-					<p class="question">STEP 3: Speed date</p>
-					<p class="answer">
-						You will have exactly 2 minutes to get to know this person.
-						When time is up, you will either "reveal" or "reject".
-						If and only if both of you choose "reveal", your profiles will become visible to each other and you may stay in the chat indefinitely.
-						If at least one of you chose "reject", the date is over.
-						Hit "match" again to move on to your next date!
-					</p>
+				<b><p class="question" style = "font-size:200%">STEP 3: Speed date</p></b>
+					<pre class="answer" style = "font-size:150%">
+You will have exactly 2 minutes to get to know this person.
+When time is up, you can choose "Reveal" or "Reject".
+					</pre> 
+	
+<b><p class= "question" style = "font-size:200%">STEP 4: Decide </p></b>
+<pre class = "answer" style = "font-size: 150%">
+Choosing "Reveal" will reveal your information to the other user.
+If at least one of you chose "Reject", the date is over.
+Hit "Match" again to move on to your next date!
+					</pre>
 				</div>
 				<br>
-				<p id="statsTitle">Today's Statistics</p>
+<!-- 				<p id="statsTitle">Today's Statistics</p>
 				<p class="statsSmall">Online Users: </p><p id = "numOnlineUsers"></p>
-        		<p class="statsSmall">Success Rate: </p><p id = "successRate"></p>
+        		<p class="statsSmall">Success Rate: </p><p id = "successRate"></p>	-->
 			</div>
 	
 			<div id = "rightColumn">
@@ -103,7 +153,7 @@
 					<input id="username1" type="text" placeholder="Username">
 					<br><input id="password1" type="text" placeholder="Password">
 					<span id="errormsg1"></span>
-					<br><button type="button" onclick="loginContinuingUser()" value="Login">Login</button>
+					<br><button id= "button1" type="button" onclick="loginContinuingUser()" value="Login">Login</button>
 				</form>
 				<br>
 				<!-- New User Login -->
@@ -113,18 +163,19 @@
 					<input id="username2" type="text" placeholder="Username">
 					<br><input id="password2" type="text" placeholder="Password">
 					<span id="errormsg2"></span>
-					<br><button type="button" onclick="loginNewUser()">Create Account</button>
+					<br><button id="button2" type="button" onclick="loginNewUser()">Create Account</button>
 				</form>
 				<br>
 				<!-- Guest Login -->
 				<hr class="line">
 				<p class="loginTitle">Guest</p>
 				<form id="loginForm3" method="POST" onsubmit="loginGuest();">
-					<br><button type="button" onclick="loginGuest()" value="Login">Login</button>
+					<br><button id = "button1" type="button" onclick="loginGuest()" value="Login">Guest Login</button>
 				</form>
+				<img src = "https://media.giphy.com/media/YKcWT7DvtwVVu/giphy.gif">
 			</div>
 			<div id = "middleColumn">
-				<img src="https://i.imgur.com/ptmqQvw.png">
+				<img src="https://i.imgur.com/CeCSU4v.png" height="580">
 			</div>
 		</div>
 
