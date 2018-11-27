@@ -126,6 +126,9 @@
 		  		  
 //emoji stuff------------------------------------------------------------------------------>
 
+		  		  
+		//set interval 
+		//disable button until 2 users
 
 		  $(document).ready(function() { // initialize after the page has loaded
 			  // put your other initialization code here
@@ -144,13 +147,12 @@
 			});  
 			  
 		  function timer(){
-			    var sec = 120;	//120
+			    var sec = 30;	//120
 			    var timer = setInterval(function(){
 			        document.getElementById('timer').innerHTML=sec;
 			        sec--;
 			        if (sec < 0) {
 			            clearInterval(timer);
-						//end of 120 secs here
 						alert();
 			        }
 			    }, 1000);
@@ -174,7 +176,7 @@
 				showCancelButton:true,
 				confirmButtonColor: '#ff9999',
 				confirmButtonText: 'Reveal',
-				cancelButtonText: 'Send me home',
+				cancelButtonText: 'Reject',
 			}).then((result) => {
 				if(result.value){
 					
@@ -225,7 +227,7 @@
 
 		  const drone = new ScaleDrone(channelid1, {
 		    data: { // Will be sent out as clientData via events
-		      name: 'billybob',			//IMPORTANT: change to getsessionid("username")
+		      name: "jchailatte",
 		      color: getRandomColor(),
 		    },
 		  });

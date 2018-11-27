@@ -122,7 +122,7 @@
 					</br>
 				<b>	<p class="question" style = "font-size:200%">STEP 2: Find a match</p></b>
 					<p class="answer" style = "font-size:150%" >
-						Hit "match" to start your first "date"!
+						Hit "Match" to start your first "Date"!
 						Based on your survey results, you will be put into a one-on-one anonymous chat.
 					</p>
 					</br>
@@ -151,7 +151,7 @@ Hit "Match" again to move on to your next date!
 				<p class="loginTitle">Continuing User</p>
 				<form id="loginForm1" method="POST" onsubmit="loginContinuingUser();">
 					<input id="username1" type="text" placeholder="Username">
-					<br><input id="password1" type="text" placeholder="Password">
+					<br><input id="password1" type="password" placeholder="Password">
 					<span id="errormsg1"></span>
 					<br><button id= "button1" type="button" onclick="loginContinuingUser()" value="Login">Login</button>
 				</form>
@@ -161,7 +161,7 @@ Hit "Match" again to move on to your next date!
 				<p class="loginTitle">New User</p>
 				<form id="loginForm2" method="POST" onsubmit="loginNewUser();">
 					<input id="username2" type="text" placeholder="Username">
-					<br><input id="password2" type="text" placeholder="Password">
+					<br><input id="password2" type="password" placeholder="Password">
 					<span id="errormsg2"></span>
 					<br><button id="button2" type="button" onclick="loginNewUser()">Create Account</button>
 				</form>
