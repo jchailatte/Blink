@@ -4,10 +4,17 @@
 		<meta charset="ISO-8859-1">
 		<title>Survey</title>
 		<link rel="stylesheet" type="text/css" href="css.css" />
+		<link rel="stylesheet" type="text/css" href="nav.css" />
     	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 	</head>
 	<header>
-		<div class="blinkText">BLINK</div>
+		<div id = "navbar"> 
+			<img src="https://i.imgur.com/wFPSJRj.gif" id="logo" >
+			<a href="home.jsp">BLINK</a>
+			<a href="profile.jsp">Profile</a>
+			<a href="survey.jsp">Survey</a>
+			<p id="timer"></p>
+		</div>
   	</header>
 	<body>
 		<div class="signedInErrorMessage"></div>
@@ -465,7 +472,7 @@
 					});
 					sessionStorage.setItem('username', username);
 					console.log("survey: " + username);
-					window.location.href = 'chatroom.jsp';
+					window.location.href = 'chatroom.html';
 				}
 				
 				
